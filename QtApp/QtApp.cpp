@@ -9,6 +9,8 @@
 #include <sstream>
 
 #include "cppToOc.h"
+#include "calc_hr_breath_fatigue.h"
+
 
 #define DATA_LENGTH             100
 #define DATA_SIZE_MAX           1500
@@ -32,17 +34,18 @@ QtApp::QtApp(QWidget *parent)
 , _checkSum(0)
 {
 	_commData = {};
+	_calcData = {};
 	ui.setupUi(this);
 
 	constexpr unsigned short com_port_vid = 0x1A86;
 	constexpr unsigned short com_port_pid = 0x7523;
 
 	//ui.InfoTableWidget->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
-	QBrush myBrush;
-	QPalette palette;
-	myBrush = QBrush(Qt::green, Qt::DiagCrossPattern);
-	palette.setBrush(QPalette::Text, myBrush);
-	ui.HandsStatusLineEdit->setPalette(palette);
+	//QBrush myBrush;
+	//QPalette palette;
+	//myBrush = QBrush(Qt::green, Qt::DiagCrossPattern);
+	//palette.setBrush(QPalette::Text, myBrush);
+	//ui.HRStatusLineEdit->setPalette(palette);
 
 	//search com
 	//QSerialPort selectedSerialPort;
@@ -83,7 +86,7 @@ QtApp::QtApp(QWidget *parent)
 
 	QValueAxis *axisY = new QValueAxis;
 	//axisY->setRange(0, 800);
-	axisY->setRange(-600, 600);
+	axisY->setRange(-900, 900);
 	//axisY->hide();
 	//axisY->setLinePenColor(_qSplineSeries->pen().color());
 
@@ -155,7 +158,7 @@ void QtApp::ConnectCOM()
 		ui.COMOPushButton->setText("stop");
 		
 		_listOfRawData.clear();
-		ui.HandsStatusLineEdit->clear();
+		ui.HRStatusLineEdit->clear();
 		ui.BreathLineEdit->clear();
 		ui.TiredLineEdit->clear();
 		_checkSum = 0;
@@ -174,7 +177,7 @@ void QtApp::ConnectCOM()
 		ui.COMOPushButton->setText("start");
 
 		_listOfRawData.clear();
-		ui.HandsStatusLineEdit->clear();
+		ui.HRStatusLineEdit->clear();
 		ui.BreathLineEdit->clear();
 		ui.TiredLineEdit->clear();
 		_checkSum = 0;
@@ -263,7 +266,7 @@ void QtApp::receiveInfo()
 
 	if (ECG_FRAME_HEADER == header)
 	{
-		ui.HandsStatusLineEdit->clear();
+		ui.HRStatusLineEdit->clear();
 		ui.BreathLineEdit->clear();
 		ui.TiredLineEdit->clear();
 
@@ -288,13 +291,25 @@ void QtApp::receiveInfo()
 			check_sum = raw_data[6];
 
 			if (ECG_STATUS_ALL_OFF == finger_status)
-				ui.statusBar->showMessage("All Off");
+			{
+				ui.radioButton_both->setChecked(false);
+				ui.radioButton_left->setChecked(false);
+				ui.radioButton_right->setChecked(false);
+			}
 			else if (ECG_STATUS_LEFT_OFF == finger_status)
-				ui.statusBar->showMessage("Left Off");
+			{
+				ui.radioButton_left->setChecked(false);
+				ui.radioButton_right->setChecked(true);
+			}
 			else if (ECG_STATUS_RIGHT_OFF == finger_status)
-				ui.statusBar->showMessage("Right Off");
+			{
+				ui.radioButton_left->setChecked(true);
+				ui.radioButton_right->setChecked(false);
+			}
 			else
-				ui.statusBar->showMessage("");
+			{
+				ui.radioButton_both->setChecked(true);
+			}
 
 			//fill data
 			_commData.header = header;
@@ -319,26 +334,8 @@ void QtApp::receiveInfo()
 				_checkSum += raw_data[i];
 			}
 
-			//All hands
-			/*QBrush myBrush;
-			QPalette palette;
-			myBrush = QBrush(Qt::green, Qt::DiagCrossPattern);
-			palette.setBrush(QPalette::Text, myBrush);
-			ui.HandsStatusLineEdit->setPalette(palette);*/
-			ui.HandsStatusLineEdit->clear();
-			ui.HandsStatusLineEdit->setText("######");
-
-			std::default_random_engine e(time(0));
-			std::uniform_int_distribution<int> breath_range(9, 12);
-			int breath_data = breath_range(e);
-			breath_data = breath_range(e);
-			std::uniform_int_distribution<int> tired_range(2, 4);
-			int tired_data = tired_range(e);
-
-			ui.BreathLineEdit->clear();
-			ui.BreathLineEdit->setText(QString::number(breath_data));
-			ui.TiredLineEdit->clear();
-			ui.TiredLineEdit->setText(QString::number(tired_data));
+			//both hands
+			ui.radioButton_both->setChecked(true);
 
 			//fill data
 			_commData.header = header;
@@ -380,6 +377,7 @@ void QtApp::receiveInfo()
 
 	if (_listOfRawData.size() >= 200)//drop the other data
 	{
+
 		//display raw data
 		std::string rawBytes ="data received:";
 
@@ -402,31 +400,40 @@ void QtApp::receiveInfo()
 		//display chart
 		int *result = NULL;
 		std::vector<uint16_t> listOfData(DATA_LENGTH);
-		//memcpy(listOfData.data(), _listOfRawData.data(), sizeof(uint16_t) * DATA_LENGTH);
-
 		for (uint32_t i = 0; i < DATA_LENGTH; i ++)
 		{
 			listOfData[i] = _listOfRawData[2*i + 1] + (_listOfRawData[2*i] << 8);
 		}
-
 		std::vector<int> listOfDataInput(DATA_LENGTH);
 		for (int i = 0; i < DATA_LENGTH; i++)
 			listOfDataInput[i] = listOfData[i];
 
 		std::vector<int> listOfDataOutput(DATA_LENGTH);
 		result = filter(listOfDataInput.data(), listOfDataOutput.data(), DATA_LENGTH);
-
-		//show
-		/*for (size_t t = 0; t < listOfDataInput.size(); t++)
-		{
-			this->Refresh(listOfDataOutput[t]);
-		}*/
-
 		this->Refresh(listOfDataOutput.data(), listOfDataOutput.size());
-		//this->Refresh(listOfDataInput.data(), listOfDataInput.size());
+
+		//display hr_breath_fatigue
+		int *calcResult = new int[3];
+		calc_result(listOfDataInput.data(), 100, calcResult);
+		//printf("HR:%d, FATIGUE:%d, BREATHRATE:%d\n", calcResult[0], result[1], result[2]);
+
+		_calcData.hr = calcResult[0];
+		_calcData.fatigue = calcResult[1];
+		_calcData.breathe = calcResult[2];
+
+		ui.BreathLineEdit->clear();
+		ui.BreathLineEdit->setText(QString::number(_calcData.breathe));
+		ui.TiredLineEdit->clear();
+		ui.TiredLineEdit->setText(QString::number(_calcData.fatigue));
+		ui.HRStatusLineEdit->clear();
+		ui.HRStatusLineEdit->setText(QString::number(_calcData.hr));
+
+		delete calcResult;
+		//delete result;
 
 	}
 	
+	ui.radioButton_both->setChecked(false);
 	//_pSelectedSerialPort->flush();
 }
 

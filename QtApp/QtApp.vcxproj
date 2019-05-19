@@ -124,7 +124,7 @@
       <OutputFile>$(OutDir)\$(ProjectName).exe</OutputFile>
       <AdditionalLibraryDirectories>$(QTDIR)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>qtmaind.lib;Qt5Widgetsd.lib;Qt5Chartsd.lib;Qt5Cored.lib;$(SolutionDir)$(Platform)\$(Configuration)\realtimeFilterDll.lib;Qt5Guid.lib;Qt5SerialPortd.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>qtmaind.lib;Qt5Widgetsd.lib;Qt5Chartsd.lib;Qt5Cored.lib;$(SolutionDir)$(Platform)\$(Configuration)\realtimeFilterDll.lib;$(SolutionDir)$(Platform)\$(Configuration)\calc_hr_breath_fatigue_dll.lib;Qt5Guid.lib;Qt5SerialPortd.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <QtMoc>
       <OutputFile>.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</OutputFile>
@@ -187,7 +187,7 @@
       <OutputFile>$(OutDir)\$(ProjectName).exe</OutputFile>
       <AdditionalLibraryDirectories>$(QTDIR)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>false</GenerateDebugInformation>
-      <AdditionalDependencies>qtmain.lib;Qt5Widgets.lib;Qt5Charts.lib;Qt5Core.lib;$(SolutionDir)$(Platform)\$(Configuration)\realtimeFilterDll.lib;Qt5Gui.lib;Qt5SerialPort.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>qtmain.lib;Qt5Widgets.lib;Qt5Charts.lib;Qt5Core.lib;$(SolutionDir)$(Platform)\$(Configuration)\realtimeFilterDll.lib;$(SolutionDir)$(Platform)\$(Configuration)\calc_hr_breath_fatigue_dll.lib;Qt5Gui.lib;Qt5SerialPort.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <QtMoc>
       <OutputFile>.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</OutputFile>

@@ -19,6 +19,7 @@
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenuBar>
 #include <QtWidgets/QPushButton>
+#include <QtWidgets/QRadioButton>
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QTextBrowser>
 #include <QtWidgets/QToolBar>
@@ -34,9 +35,12 @@ public:
     QVBoxLayout *verticalLayout;
     QHBoxLayout *horizontalLayout_2;
     QGroupBox *COMGroupBox;
-    QHBoxLayout *horizontalLayout_3;
+    QVBoxLayout *verticalLayout_3;
     QComboBox *COMComboBox;
     QPushButton *COMOPushButton;
+    QRadioButton *radioButton_both;
+    QRadioButton *radioButton_left;
+    QRadioButton *radioButton_right;
     QGroupBox *StatusGroupBox;
     QVBoxLayout *verticalLayout_2;
     QLabel *TiredLabel;
@@ -44,7 +48,7 @@ public:
     QLabel *BreathLabel;
     QLineEdit *BreathLineEdit;
     QLabel *HandsStatusLabel;
-    QLineEdit *HandsStatusLineEdit;
+    QLineEdit *HRStatusLineEdit;
     QTextBrowser *textBrowser;
     QLabel *LogoLabel;
     QMenuBar *menuBar;
@@ -67,19 +71,34 @@ public:
         horizontalLayout_2->setObjectName(QString::fromUtf8("horizontalLayout_2"));
         COMGroupBox = new QGroupBox(centralWidget);
         COMGroupBox->setObjectName(QString::fromUtf8("COMGroupBox"));
-        horizontalLayout_3 = new QHBoxLayout(COMGroupBox);
-        horizontalLayout_3->setSpacing(6);
-        horizontalLayout_3->setContentsMargins(11, 11, 11, 11);
-        horizontalLayout_3->setObjectName(QString::fromUtf8("horizontalLayout_3"));
+        verticalLayout_3 = new QVBoxLayout(COMGroupBox);
+        verticalLayout_3->setSpacing(6);
+        verticalLayout_3->setContentsMargins(11, 11, 11, 11);
+        verticalLayout_3->setObjectName(QString::fromUtf8("verticalLayout_3"));
         COMComboBox = new QComboBox(COMGroupBox);
         COMComboBox->setObjectName(QString::fromUtf8("COMComboBox"));
 
-        horizontalLayout_3->addWidget(COMComboBox);
+        verticalLayout_3->addWidget(COMComboBox);
 
         COMOPushButton = new QPushButton(COMGroupBox);
         COMOPushButton->setObjectName(QString::fromUtf8("COMOPushButton"));
 
-        horizontalLayout_3->addWidget(COMOPushButton);
+        verticalLayout_3->addWidget(COMOPushButton);
+
+        radioButton_both = new QRadioButton(COMGroupBox);
+        radioButton_both->setObjectName(QString::fromUtf8("radioButton_both"));
+
+        verticalLayout_3->addWidget(radioButton_both);
+
+        radioButton_left = new QRadioButton(COMGroupBox);
+        radioButton_left->setObjectName(QString::fromUtf8("radioButton_left"));
+
+        verticalLayout_3->addWidget(radioButton_left);
+
+        radioButton_right = new QRadioButton(COMGroupBox);
+        radioButton_right->setObjectName(QString::fromUtf8("radioButton_right"));
+
+        verticalLayout_3->addWidget(radioButton_right);
 
 
         horizontalLayout_2->addWidget(COMGroupBox);
@@ -116,11 +135,11 @@ public:
 
         verticalLayout_2->addWidget(HandsStatusLabel);
 
-        HandsStatusLineEdit = new QLineEdit(StatusGroupBox);
-        HandsStatusLineEdit->setObjectName(QString::fromUtf8("HandsStatusLineEdit"));
-        HandsStatusLineEdit->setReadOnly(true);
+        HRStatusLineEdit = new QLineEdit(StatusGroupBox);
+        HRStatusLineEdit->setObjectName(QString::fromUtf8("HRStatusLineEdit"));
+        HRStatusLineEdit->setReadOnly(true);
 
-        verticalLayout_2->addWidget(HandsStatusLineEdit);
+        verticalLayout_2->addWidget(HRStatusLineEdit);
 
         textBrowser = new QTextBrowser(StatusGroupBox);
         textBrowser->setObjectName(QString::fromUtf8("textBrowser"));
@@ -161,10 +180,13 @@ public:
         QtAppClass->setWindowTitle(QApplication::translate("QtAppClass", "Demo", nullptr));
         COMGroupBox->setTitle(QApplication::translate("QtAppClass", "COM", nullptr));
         COMOPushButton->setText(QApplication::translate("QtAppClass", "start", nullptr));
+        radioButton_both->setText(QApplication::translate("QtAppClass", "\345\217\214\346\211\213", nullptr));
+        radioButton_left->setText(QApplication::translate("QtAppClass", "\345\267\246\346\211\213", nullptr));
+        radioButton_right->setText(QApplication::translate("QtAppClass", "\345\217\263\346\211\213", nullptr));
         StatusGroupBox->setTitle(QApplication::translate("QtAppClass", "Status", nullptr));
         TiredLabel->setText(QApplication::translate("QtAppClass", "\347\226\262\345\212\263\345\272\246", nullptr));
         BreathLabel->setText(QApplication::translate("QtAppClass", "\345\221\274\345\220\270", nullptr));
-        HandsStatusLabel->setText(QApplication::translate("QtAppClass", "\345\217\214\346\211\213\346\217\241", nullptr));
+        HandsStatusLabel->setText(QApplication::translate("QtAppClass", "\345\277\203\347\216\207", nullptr));
         LogoLabel->setText(QApplication::translate("QtAppClass", "\345\220\254\345\277\203(\344\270\212\346\265\267)\346\231\272\350\203\275\347\247\221\346\212\200\346\234\211\351\231\220\345\205\254\345\217\270", nullptr));
     } // retranslateUi
 

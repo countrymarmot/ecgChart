@@ -14,8 +14,15 @@ struct comm_data_t
 	uint8_t  function_code;
 	uint8_t  length;
 	uint8_t  check_sum;
-	uint16_t index;
+    uint16_t index;
 	uint16_t finger_status;
+};
+
+struct calc_data_t
+{
+    int hr;
+	int fatigue;
+	int breathe;
 };
 
 QT_CHARTS_USE_NAMESPACE
@@ -53,6 +60,7 @@ private:
 	std::vector<uint8_t> _listOfRawData;
 	uint8_t _checkSum;
 	comm_data_t _commData;
+	calc_data_t _calcData;
 
 	QList<int> _listOfPointData;
 };
