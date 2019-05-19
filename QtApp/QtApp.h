@@ -6,8 +6,17 @@
 #include "QChartView.h"
 #include "QSplineSeries.h"
 #include <QSerialPort>
-
 #include <vector>
+
+struct comm_data_t
+{
+	uint16_t header;
+	uint8_t  function_code;
+	uint8_t  length;
+	uint8_t  check_sum;
+	uint16_t index;
+	uint16_t finger_status;
+};
 
 QT_CHARTS_USE_NAMESPACE
 
@@ -42,8 +51,8 @@ private:
 	QSerialPort *_pSelectedSerialPort;
 
 	std::vector<uint8_t> _listOfRawData;
-	uint16_t _ecgIndex;
 	uint8_t _checkSum;
+	comm_data_t _commData;
 
 	QList<int> _listOfPointData;
 };
