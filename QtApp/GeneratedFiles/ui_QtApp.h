@@ -12,6 +12,7 @@
 #include <QtCore/QVariant>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QComboBox>
+#include <QtWidgets/QGridLayout>
 #include <QtWidgets/QGroupBox>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QLabel>
@@ -35,21 +36,21 @@ public:
     QVBoxLayout *verticalLayout;
     QHBoxLayout *horizontalLayout_2;
     QGroupBox *COMGroupBox;
-    QVBoxLayout *verticalLayout_3;
+    QHBoxLayout *horizontalLayout_3;
     QComboBox *COMComboBox;
     QPushButton *COMOPushButton;
     QRadioButton *radioButton_both;
     QRadioButton *radioButton_left;
     QRadioButton *radioButton_right;
     QGroupBox *StatusGroupBox;
-    QVBoxLayout *verticalLayout_2;
+    QGridLayout *gridLayout;
     QLabel *TiredLabel;
+    QTextBrowser *textBrowser;
     QLineEdit *TiredLineEdit;
     QLabel *BreathLabel;
     QLineEdit *BreathLineEdit;
     QLabel *HandsStatusLabel;
     QLineEdit *HRStatusLineEdit;
-    QTextBrowser *textBrowser;
     QLabel *LogoLabel;
     QMenuBar *menuBar;
     QToolBar *mainToolBar;
@@ -71,80 +72,80 @@ public:
         horizontalLayout_2->setObjectName(QString::fromUtf8("horizontalLayout_2"));
         COMGroupBox = new QGroupBox(centralWidget);
         COMGroupBox->setObjectName(QString::fromUtf8("COMGroupBox"));
-        verticalLayout_3 = new QVBoxLayout(COMGroupBox);
-        verticalLayout_3->setSpacing(6);
-        verticalLayout_3->setContentsMargins(11, 11, 11, 11);
-        verticalLayout_3->setObjectName(QString::fromUtf8("verticalLayout_3"));
+        horizontalLayout_3 = new QHBoxLayout(COMGroupBox);
+        horizontalLayout_3->setSpacing(6);
+        horizontalLayout_3->setContentsMargins(11, 11, 11, 11);
+        horizontalLayout_3->setObjectName(QString::fromUtf8("horizontalLayout_3"));
         COMComboBox = new QComboBox(COMGroupBox);
         COMComboBox->setObjectName(QString::fromUtf8("COMComboBox"));
 
-        verticalLayout_3->addWidget(COMComboBox);
+        horizontalLayout_3->addWidget(COMComboBox);
 
         COMOPushButton = new QPushButton(COMGroupBox);
         COMOPushButton->setObjectName(QString::fromUtf8("COMOPushButton"));
 
-        verticalLayout_3->addWidget(COMOPushButton);
+        horizontalLayout_3->addWidget(COMOPushButton);
 
         radioButton_both = new QRadioButton(COMGroupBox);
         radioButton_both->setObjectName(QString::fromUtf8("radioButton_both"));
 
-        verticalLayout_3->addWidget(radioButton_both);
+        horizontalLayout_3->addWidget(radioButton_both);
 
         radioButton_left = new QRadioButton(COMGroupBox);
         radioButton_left->setObjectName(QString::fromUtf8("radioButton_left"));
 
-        verticalLayout_3->addWidget(radioButton_left);
+        horizontalLayout_3->addWidget(radioButton_left);
 
         radioButton_right = new QRadioButton(COMGroupBox);
         radioButton_right->setObjectName(QString::fromUtf8("radioButton_right"));
 
-        verticalLayout_3->addWidget(radioButton_right);
+        horizontalLayout_3->addWidget(radioButton_right);
 
 
         horizontalLayout_2->addWidget(COMGroupBox);
 
         StatusGroupBox = new QGroupBox(centralWidget);
         StatusGroupBox->setObjectName(QString::fromUtf8("StatusGroupBox"));
-        verticalLayout_2 = new QVBoxLayout(StatusGroupBox);
-        verticalLayout_2->setSpacing(6);
-        verticalLayout_2->setContentsMargins(11, 11, 11, 11);
-        verticalLayout_2->setObjectName(QString::fromUtf8("verticalLayout_2"));
+        gridLayout = new QGridLayout(StatusGroupBox);
+        gridLayout->setSpacing(6);
+        gridLayout->setContentsMargins(11, 11, 11, 11);
+        gridLayout->setObjectName(QString::fromUtf8("gridLayout"));
         TiredLabel = new QLabel(StatusGroupBox);
         TiredLabel->setObjectName(QString::fromUtf8("TiredLabel"));
 
-        verticalLayout_2->addWidget(TiredLabel);
+        gridLayout->addWidget(TiredLabel, 0, 0, 1, 1);
+
+        textBrowser = new QTextBrowser(StatusGroupBox);
+        textBrowser->setObjectName(QString::fromUtf8("textBrowser"));
+
+        gridLayout->addWidget(textBrowser, 0, 1, 6, 1);
 
         TiredLineEdit = new QLineEdit(StatusGroupBox);
         TiredLineEdit->setObjectName(QString::fromUtf8("TiredLineEdit"));
 
-        verticalLayout_2->addWidget(TiredLineEdit);
+        gridLayout->addWidget(TiredLineEdit, 1, 0, 1, 1);
 
         BreathLabel = new QLabel(StatusGroupBox);
         BreathLabel->setObjectName(QString::fromUtf8("BreathLabel"));
 
-        verticalLayout_2->addWidget(BreathLabel);
+        gridLayout->addWidget(BreathLabel, 2, 0, 1, 1);
 
         BreathLineEdit = new QLineEdit(StatusGroupBox);
         BreathLineEdit->setObjectName(QString::fromUtf8("BreathLineEdit"));
         BreathLineEdit->setReadOnly(true);
 
-        verticalLayout_2->addWidget(BreathLineEdit);
+        gridLayout->addWidget(BreathLineEdit, 3, 0, 1, 1);
 
         HandsStatusLabel = new QLabel(StatusGroupBox);
         HandsStatusLabel->setObjectName(QString::fromUtf8("HandsStatusLabel"));
 
-        verticalLayout_2->addWidget(HandsStatusLabel);
+        gridLayout->addWidget(HandsStatusLabel, 4, 0, 1, 1);
 
         HRStatusLineEdit = new QLineEdit(StatusGroupBox);
         HRStatusLineEdit->setObjectName(QString::fromUtf8("HRStatusLineEdit"));
         HRStatusLineEdit->setReadOnly(true);
 
-        verticalLayout_2->addWidget(HRStatusLineEdit);
-
-        textBrowser = new QTextBrowser(StatusGroupBox);
-        textBrowser->setObjectName(QString::fromUtf8("textBrowser"));
-
-        verticalLayout_2->addWidget(textBrowser);
+        gridLayout->addWidget(HRStatusLineEdit, 5, 0, 1, 1);
 
 
         horizontalLayout_2->addWidget(StatusGroupBox);

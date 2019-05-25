@@ -100,6 +100,7 @@ QtApp::QtApp(QWidget *parent)
 
 	ui.verticalLayout->addWidget(_qChartView);
 	//this->setCentralWidget(_qChartView);
+	_qChart->setBackgroundBrush(QImage("images/background.jpg"));
 
 	ui.verticalLayout->addWidget(ui.LogoLabel);
 
