@@ -1,4 +1,4 @@
-#include "QtApp.h"
+﻿#include "QtApp.h"
 #include <QSerialPortInfo>
 #include <QMessageBox>
 #include "QValueAxis.h"
@@ -21,7 +21,7 @@
 
 #define ECG_STATUS_ALL_OFF      0x0000
 #define ECG_STATUS_LEFT_OFF     0x0001
-#define ECG_STATUS_RIGHT_OFF    0x0010
+#define ECG_STATUS_RIGHT_OFF    0x0002
 
 
 QtApp::QtApp(QWidget *parent)
@@ -94,6 +94,8 @@ QtApp::QtApp(QWidget *parent)
 	_qSplineSeries->attachAxis(axisX);
 	_qSplineSeries->attachAxis(axisY);
 	_qSplineSeries->setUseOpenGL(true);
+	_qSplineSeries->setColor(Qt::yellow);
+
 
 	_qChartView = new QChartView(_qChart);
 	_qChartView->setRenderHint(QPainter::Antialiasing);
@@ -293,23 +295,26 @@ void QtApp::receiveInfo()
 
 			if (ECG_STATUS_ALL_OFF == finger_status)
 			{
-				ui.radioButton_both->setChecked(false);
-				ui.radioButton_left->setChecked(false);
-				ui.radioButton_right->setChecked(false);
+				ui.checkBoxBoth->setChecked(false);
+				ui.checkBoxRight->setChecked(false);
+				ui.checkBoxLeft->setChecked(false);
 			}
 			else if (ECG_STATUS_LEFT_OFF == finger_status)
 			{
-				ui.radioButton_left->setChecked(false);
-				ui.radioButton_right->setChecked(true);
+				ui.checkBoxBoth->setChecked(false);
+				ui.checkBoxRight->setChecked(true);
+				ui.checkBoxLeft->setChecked(false);
 			}
 			else if (ECG_STATUS_RIGHT_OFF == finger_status)
 			{
-				ui.radioButton_left->setChecked(true);
-				ui.radioButton_right->setChecked(false);
+				ui.checkBoxBoth->setChecked(false);
+				ui.checkBoxRight->setChecked(false);
+				ui.checkBoxLeft->setChecked(true);
 			}
 			else
 			{
-				ui.radioButton_both->setChecked(true);
+				//ui.radioButton_both->setChecked(true);
+				//ui.handLineEdit->text = "left hand";
 			}
 
 			//fill data
@@ -336,7 +341,7 @@ void QtApp::receiveInfo()
 			}
 
 			//both hands
-			ui.radioButton_both->setChecked(true);
+			ui.checkBoxBoth->setChecked(true);
 
 			//fill data
 			_commData.header = header;
@@ -422,11 +427,11 @@ void QtApp::receiveInfo()
 		_calcData.fatigue = calcResult[1];
 		_calcData.breathe = calcResult[2];
 
-		ui.BreathLineEdit->clear();
+		//ui.BreathLineEdit->clear();
 		ui.BreathLineEdit->setText(QString::number(_calcData.breathe));
-		ui.TiredLineEdit->clear();
+		//ui.TiredLineEdit->clear();
 		ui.TiredLineEdit->setText(QString::number(_calcData.fatigue));
-		ui.HRStatusLineEdit->clear();
+		//ui.HRStatusLineEdit->clear();
 		ui.HRStatusLineEdit->setText(QString::number(_calcData.hr));
 
 		delete calcResult;
@@ -434,7 +439,7 @@ void QtApp::receiveInfo()
 
 	}
 	
-	ui.radioButton_both->setChecked(false);
+	//ui.checkBoxBoth->setChecked(false);
 	//_pSelectedSerialPort->flush();
 }
 

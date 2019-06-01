@@ -11,6 +11,7 @@
 
 #include <QtCore/QVariant>
 #include <QtWidgets/QApplication>
+#include <QtWidgets/QCheckBox>
 #include <QtWidgets/QComboBox>
 #include <QtWidgets/QGridLayout>
 #include <QtWidgets/QGroupBox>
@@ -20,7 +21,6 @@
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenuBar>
 #include <QtWidgets/QPushButton>
-#include <QtWidgets/QRadioButton>
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QTextBrowser>
 #include <QtWidgets/QToolBar>
@@ -36,12 +36,12 @@ public:
     QVBoxLayout *verticalLayout;
     QHBoxLayout *horizontalLayout_2;
     QGroupBox *COMGroupBox;
-    QHBoxLayout *horizontalLayout_3;
+    QVBoxLayout *verticalLayout_2;
     QComboBox *COMComboBox;
     QPushButton *COMOPushButton;
-    QRadioButton *radioButton_both;
-    QRadioButton *radioButton_left;
-    QRadioButton *radioButton_right;
+    QCheckBox *checkBoxBoth;
+    QCheckBox *checkBoxLeft;
+    QCheckBox *checkBoxRight;
     QGroupBox *StatusGroupBox;
     QGridLayout *gridLayout;
     QLabel *TiredLabel;
@@ -72,34 +72,34 @@ public:
         horizontalLayout_2->setObjectName(QString::fromUtf8("horizontalLayout_2"));
         COMGroupBox = new QGroupBox(centralWidget);
         COMGroupBox->setObjectName(QString::fromUtf8("COMGroupBox"));
-        horizontalLayout_3 = new QHBoxLayout(COMGroupBox);
-        horizontalLayout_3->setSpacing(6);
-        horizontalLayout_3->setContentsMargins(11, 11, 11, 11);
-        horizontalLayout_3->setObjectName(QString::fromUtf8("horizontalLayout_3"));
+        verticalLayout_2 = new QVBoxLayout(COMGroupBox);
+        verticalLayout_2->setSpacing(6);
+        verticalLayout_2->setContentsMargins(11, 11, 11, 11);
+        verticalLayout_2->setObjectName(QString::fromUtf8("verticalLayout_2"));
         COMComboBox = new QComboBox(COMGroupBox);
         COMComboBox->setObjectName(QString::fromUtf8("COMComboBox"));
 
-        horizontalLayout_3->addWidget(COMComboBox);
+        verticalLayout_2->addWidget(COMComboBox);
 
         COMOPushButton = new QPushButton(COMGroupBox);
         COMOPushButton->setObjectName(QString::fromUtf8("COMOPushButton"));
 
-        horizontalLayout_3->addWidget(COMOPushButton);
+        verticalLayout_2->addWidget(COMOPushButton);
 
-        radioButton_both = new QRadioButton(COMGroupBox);
-        radioButton_both->setObjectName(QString::fromUtf8("radioButton_both"));
+        checkBoxBoth = new QCheckBox(COMGroupBox);
+        checkBoxBoth->setObjectName(QString::fromUtf8("checkBoxBoth"));
 
-        horizontalLayout_3->addWidget(radioButton_both);
+        verticalLayout_2->addWidget(checkBoxBoth);
 
-        radioButton_left = new QRadioButton(COMGroupBox);
-        radioButton_left->setObjectName(QString::fromUtf8("radioButton_left"));
+        checkBoxLeft = new QCheckBox(COMGroupBox);
+        checkBoxLeft->setObjectName(QString::fromUtf8("checkBoxLeft"));
 
-        horizontalLayout_3->addWidget(radioButton_left);
+        verticalLayout_2->addWidget(checkBoxLeft);
 
-        radioButton_right = new QRadioButton(COMGroupBox);
-        radioButton_right->setObjectName(QString::fromUtf8("radioButton_right"));
+        checkBoxRight = new QCheckBox(COMGroupBox);
+        checkBoxRight->setObjectName(QString::fromUtf8("checkBoxRight"));
 
-        horizontalLayout_3->addWidget(radioButton_right);
+        verticalLayout_2->addWidget(checkBoxRight);
 
 
         horizontalLayout_2->addWidget(COMGroupBox);
@@ -181,9 +181,9 @@ public:
         QtAppClass->setWindowTitle(QApplication::translate("QtAppClass", "Demo", nullptr));
         COMGroupBox->setTitle(QApplication::translate("QtAppClass", "COM", nullptr));
         COMOPushButton->setText(QApplication::translate("QtAppClass", "start", nullptr));
-        radioButton_both->setText(QApplication::translate("QtAppClass", "\345\217\214\346\211\213", nullptr));
-        radioButton_left->setText(QApplication::translate("QtAppClass", "\345\267\246\346\211\213", nullptr));
-        radioButton_right->setText(QApplication::translate("QtAppClass", "\345\217\263\346\211\213", nullptr));
+        checkBoxBoth->setText(QApplication::translate("QtAppClass", "\345\217\214\346\211\213", nullptr));
+        checkBoxLeft->setText(QApplication::translate("QtAppClass", "\345\267\246\346\211\213", nullptr));
+        checkBoxRight->setText(QApplication::translate("QtAppClass", "\345\217\263\346\211\213", nullptr));
         StatusGroupBox->setTitle(QApplication::translate("QtAppClass", "Status", nullptr));
         TiredLabel->setText(QApplication::translate("QtAppClass", "\347\226\262\345\212\263\345\272\246", nullptr));
         BreathLabel->setText(QApplication::translate("QtAppClass", "\345\221\274\345\220\270", nullptr));

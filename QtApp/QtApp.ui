@@ -22,7 +22,7 @@
         <property name="title">
          <string>COM</string>
         </property>
-        <layout class="QHBoxLayout" name="horizontalLayout_3">
+        <layout class="QVBoxLayout" name="verticalLayout_2">
          <item>
           <widget class="QComboBox" name="COMComboBox"/>
          </item>
@@ -34,21 +34,21 @@
           </widget>
          </item>
          <item>
-          <widget class="QRadioButton" name="radioButton_both">
+          <widget class="QCheckBox" name="checkBoxBoth">
            <property name="text">
             <string>双手</string>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QRadioButton" name="radioButton_left">
+          <widget class="QCheckBox" name="checkBoxLeft">
            <property name="text">
             <string>左手</string>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QRadioButton" name="radioButton_right">
+          <widget class="QCheckBox" name="checkBoxRight">
            <property name="text">
             <string>右手</string>
            </property>
@@ -103,7 +103,6 @@
             <bool>true</bool>
            </property>
           </widget>
-
          </item>
         </layout>
        </widget>
